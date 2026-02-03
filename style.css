@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 620px;
   background: #fff;
   padding: 30px;
   margin: auto;
@@ -42,6 +42,7 @@ button {
 .dropdown div {
   padding: 10px;
   cursor: pointer;
+  background: #fff;
 }
 
 .dropdown div:hover {

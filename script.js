@@ -1,15 +1,15 @@
+const allCountries = Object.keys(countryZoneMap);
+
 const input = document.getElementById("countryInput");
 const dropdown = document.getElementById("countryDropdown");
 
-const countries = Object.keys(countryZoneMap);
-
 input.addEventListener("input", () => {
-  dropdown.innerHTML = "";
   const val = input.value.toLowerCase();
+  dropdown.innerHTML = "";
 
-  countries
+  allCountries
     .filter(c => c.toLowerCase().includes(val))
-    .slice(0, 20)
+    .slice(0, 30)
     .forEach(c => {
       const div = document.createElement("div");
       div.textContent = c;
@@ -22,12 +22,12 @@ input.addEventListener("input", () => {
 });
 
 function calculateFreight() {
-  const country = input.value;
+  const country = input.value.trim();
   const kg = parseFloat(document.getElementById("kg").value);
   const zone = countryZoneMap[country];
 
   if (!zone || !kg) {
-    alert("Select valid country and weight");
+    alert("Invalid country or weight");
     return;
   }
 
@@ -40,9 +40,11 @@ function calculateFreight() {
   } else {
     base = dhlRates.slabs[30][zone];
     const extra = kg - 30;
-    const rate = kg <= 70 ? dhlRates.multiplier.upto70[zone]
-                : kg <= 300 ? dhlRates.multiplier.upto300[zone]
-                : dhlRates.multiplier.above300[zone];
+    const rate = kg <= 70
+      ? dhlRates.multiplier.upto70[zone]
+      : kg <= 300
+      ? dhlRates.multiplier.upto300[zone]
+      : dhlRates.multiplier.above300[zone];
     base += extra * rate;
   }
 
